@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<jboss-deployment-structure>
+    <deployment>
+        <dependencies>
+            <module name="fi.op.spring.core" services="export">
+                <imports>
+                    <include path="META-INF**"/>
+                    <include path="org**"/>
+                </imports>
+            </module>
+        </dependencies>
+    </deployment>
+</jboss-deployment-structure>
