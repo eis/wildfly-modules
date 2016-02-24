@@ -1,1 +1,8 @@
+# Maven output
 target/
+
+# Eclipse metadata
+.settings
+.project
+.classpath
+.springBeans
