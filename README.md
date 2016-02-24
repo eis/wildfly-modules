@@ -1,5 +1,7 @@
 wildfly-modules
-=================
+===============
+
+[![Build Status](http://img.shields.io/travis/eis/wildfly-modules/master.svg)](https://travis-ci.org/eis/wildfly-modules)
 
 Simple examples using jboss modules structure
 
