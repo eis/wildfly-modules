@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:mvc="http://www.springframework.org/schema/mvc"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
-    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
     xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+                            http://www.springframework.org/schema/tx/spring-tx.xsd
 		">
 
     <!-- DispatcherServlet Context: defines this servlet's request-processing 
@@ -27,11 +29,21 @@
 
     <context:component-scan base-package="fi.eis.applications.beans" />
 
+    <bean id="myBean" name="myBean"
+        class="fi.eis.applications.beans.FooClass">
+        <constructor-arg ref="dataSource"/>
+    </bean>
     <bean class="fi.eis.applications.controllers.HomeController">
-        <constructor-arg>
-            <bean id="myBean" name="myBean"
-                class="fi.eis.applications.beans.FooClass">
-            </bean>
-        </constructor-arg>
+        <constructor-arg ref="myBean"/>
+    </bean>
+    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="java:jboss/datasources/PostgreSQLDB"/>
+    </bean>
+    <tx:annotation-driven transaction-manager="txManager"/>
+
+    <!-- a PlatformTransactionManager is still required -->
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!-- (this dependency is defined somewhere else) -->
+        <property name="dataSource" ref="dataSource"/>
     </bean>
 </beans>

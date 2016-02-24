@@ -2,7 +2,7 @@
 <jboss-deployment-structure>
     <deployment>
         <dependencies>
-            <module name="fi.op.spring.core" services="export">
+            <module name="org.postgresql" services="export" slot="jdbc4_2">
                 <imports>
                     <include path="META-INF**"/>
                     <include path="org**"/>
