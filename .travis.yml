@@ -4,4 +4,5 @@ sudo: false
 jdk:
   - oraclejdk8
 
-install: mvn package
+script:
+ - cd spring-mvc && mvn package
